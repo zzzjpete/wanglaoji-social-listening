@@ -1,4 +1,15 @@
-# Wanglaoji (王老吉) Gen-Z Market Analysis
+# Wanglaoji (王老吉) Social Listening
+
+**TL;DR**
+
+- **Packaging & design (net −32.5) and the competitor/trademark dispute (net −29.2) are the two
+  strongly negative topics.** Taste and efficacy are where the conversation actually happens:
+  taste is near neutral, while efficacy leans negative (n=44, borderline).
+- **Filtering off-topic comments reverses the platform ranking.** Douyin looks like the most
+  positive platform until filtered; afterwards Bilibili is, and Douyin turns net-negative.
+- **Only 253 of 1,108 collected comments survive filtering**, and the two topics the proposal
+  needed most — price (n=5) and internationalisation (n≈7 effective) — fall below the n=20
+  threshold and support no conclusion at all.
 
 Social-media comment analysis for a student advertising-competition entry on **WALOVI**,
 Wanglaoji's existing international herbal-tea can. Rebuilt from the raw crawler exports so
@@ -52,7 +63,7 @@ outputs/                        8 CSVs + 20 figures
 ```
 
 `data/raw/` (14 original crawler CSVs) and `data/processed/` (12 derived CSVs) are excluded by
-`.gitignore` — see [§8 Privacy](#8-privacy-and-data-handling).
+`.gitignore` — see [§9 Privacy](#9-privacy-and-data-handling).
 
 ---
 
@@ -81,6 +92,12 @@ Platform mix at stage ⑤ (n=881): Zhihu 496 · Bilibili 279 · Douyin 106.
 off-topic content includes other beverage brands, unrelated game discussion and promotional
 boilerplate.
 
+![Effect of off-topic content on sentiment](outputs/figures/02_noise_impact.png)
+
+*Left: sentiment split across the three sample layers. Right: within 2023+, off-topic comments
+compared with on-topic ones. Leaving the off-topic half in place shifts the negative rate and,
+more importantly, reorders the platforms.*
+
 ---
 
 ## 4. Method
@@ -95,8 +112,14 @@ boilerplate.
 | Stability | 3 random seeds, ARI/AMI at both `n_init=10` and `n_init=1` |
 | Cell reporting | every cross-tab cell carries its `n`; cells below **n=20** are marked insufficient and no conclusion is drawn |
 
-Thresholds were fixed before the runs, not tuned afterwards. The clustering stop-loss
+Thresholds were set before the runs they govern, not tuned afterwards. The clustering stop-loss
 (silhouette ≥ 0.10 **and** `n_init=1` mean ARI ≥ 0.50) was set in advance.
+
+![TF-IDF compared with sentence embeddings](outputs/figures/03b_representation_comparison.png)
+
+*Elbow, silhouette and minimum-cluster-size for both representations, on both datasets. Red
+crosses mark K values rejected for producing a cluster under 20 items; the dotted line is the
+0.10 silhouette stop-loss. TF-IDF fails it, sentence embeddings clear it.*
 
 ---
 
@@ -116,9 +139,31 @@ Directly citable. Each row states the sample size it rests on; full caveats are 
 
 Net sentiment = positive% − negative%, computed on the canonical baseline (n=253).
 
+![Sentiment and net sentiment by topic](outputs/figures/04_topic_sentiment.png)
+
+*Left: sentiment composition per topic, with n labelled on every bar. Right: net sentiment,
+ordered. Grey hatching marks topics below n=20, where no conclusion is drawn.*
+
 ---
 
-## 6. Limitations
+## 6. Implications for the proposal
+
+Taste and efficacy are the two axes the audience actually argues about, so they are where
+messaging has something to engage with; packaging and design, by contrast, is an unambiguous
+negative and the clearest candidate for remedial work rather than promotion. Taste is a
+high-volume discussion dimension (30.6% of the product-experience cluster), but this dataset
+does not show sweetness as a concentrated complaint (net +2.6, n=39). The low-sugar variant
+therefore rests on external evidence (Mintel); validating it would need a direct test such as a
+taste panel or a side-by-side trial. The trademark dispute still dominates share of voice, which
+means any campaign has to work around an existing negative frame rather than a blank slate. Two
+things are worth doing before the proposal is costed: measure first-year trial penetration
+directly, since it alone swings the ROI range by ±RMB 4.77M, and collect local data in the actual
+target overseas markets, which is the only way price and internationalisation stop being
+unanswerable here.
+
+---
+
+## 7. Limitations
 
 These have a defensible direction but must always be cited with the caveat attached.
 
@@ -128,7 +173,7 @@ These have a defensible direction but must always be cited with the caveat attac
 | "Efficacy / heat-relief" is negative | net −15.9 | 44 | n barely clears the threshold; removing campaign-pattern content moved it from −8.5 to −15.9, i.e. it is sensitive to a handful of items. |
 | "Sweetness / taste" is near neutral, marginally positive | net +2.6 | 39 | Only 11 of the 39 discuss sweetness *alone*; the rest also discuss trademark or packaging. The pure subset (11) is below the n=20 threshold, and +2.6 is within noise. |
 | The embedding cluster structure is real but weak, and supports only a two-way split | silhouette 0.1617 (TF-IDF: 0.0581) | 260 | Clears this project's pre-set stop-loss of 0.10 but sits below the conventional 0.25–0.50 "reasonable structure" range. K=3–6 score *lower*, so no four-dimension segmentation is available. Clusters also correlate significantly with text length (p=0.0008) and platform (p=0.0004), so the split is not purely semantic. |
-| Discussion has shifted from the trademark dispute toward product and internationalisation | competitor/trademark 64.4% → 40.8%; internationalisation 0.9% → 5.4% | 479 | The trademark decline is solid. The internationalisation rise is real in direction but tiny in absolute volume (see §7) and cannot be used to quantify overseas share of voice. |
+| Discussion has shifted from the trademark dispute toward product and internationalisation | competitor/trademark 64.4% → 40.8%; internationalisation 0.9% → 5.4% | 479 | The trademark decline is solid. The internationalisation rise is real in direction but tiny in absolute volume (see §8) and cannot be used to quantify overseas share of voice. |
 
 Two further method-level limits: 4 comments exceeded the 256-token limit and were truncated
 before sentiment scoring, and the keyword topic buckets over-assign on long multi-topic
@@ -136,7 +181,7 @@ comments (6.9% of items match three or more topics).
 
 ---
 
-## 7. What this data cannot support
+## 8. What this data cannot support
 
 Listed so that these claims are not made from this dataset.
 
@@ -163,7 +208,7 @@ Full evidence register: `outputs/evidence_boundary.csv`
 
 ---
 
-## 8. Privacy and data handling
+## 9. Privacy and data handling
 
 Source files were treated as read-only throughout; the 14 originals were verified
 byte-identical (MD5) against their source after copying.
@@ -190,7 +235,7 @@ individual users.
 
 ---
 
-## 9. ROI appendix (06) — read the caveat first
+## 10. ROI appendix (06) — read the caveat first
 
 **This scenario model is not based on the crawled data.** Because price (n=5) and
 internationalisation (n≈7 effective) are both unusable, no bottom-up ROI estimate is possible
@@ -214,7 +259,7 @@ valuable next step is measuring first-year trial penetration (±RMB 4.77M swing 
 
 ---
 
-## 10. Reproduction
+## 11. Reproduction
 
 ```bash
 pip install -r requirements.txt
@@ -247,7 +292,7 @@ The notebooks are now authoritative — re-running the scaffolding overwrites th
 
 ---
 
-## 11. Acknowledgements
+## 12. Acknowledgements
 
 Competition team: Qijun Zhong, Yuxuan Liang, Jinxi Zhang
 
@@ -260,5 +305,6 @@ External figures cited in the ROI appendix belong to their respective publishers
 
 ---
 
-*Analysis code and findings are the team's own work. WALOVI and 王老吉 are trademarks of their
-respective owner; this is an independent student project with no affiliation or endorsement.*
+*Competition work (Nov 2025 – Jan 2026) by the team; the Sep 2026 rebuild by Jinxi Zhang.
+WALOVI and 王老吉 are trademarks of their respective owner; this is an independent student
+project with no affiliation or endorsement.*
