@@ -249,7 +249,7 @@ The notebooks are now authoritative — re-running the scaffolding overwrites th
 
 ## 11. Acknowledgements
 
-Competition team: [TEAM MEMBERS]
+Competition team: Qijun Zhong, Yuxuan Liang, Jinxi Zhang
 
 Built with [MediaCrawler](https://github.com/NanmiCoder/MediaCrawler) for collection, and the
 `uer/roberta-base-finetuned-dianping-chinese` and `shibing624/text2vec-base-chinese` models
