@@ -1,0 +1,46 @@
+# ─────────────────────────────────────────────────────────────
+# 数据：白名单式——默认全部排除，只显式放行脱敏小样本
+#
+# data/raw/         14 个原始爬虫 CSV，含 user_id / nickname / avatar /
+#                   ip_location / user_link / sec_uid 等 9 类字段
+# data/processed/   衍生数据，含逐字原文；其中
+#                   campaign_pattern_full.csv 含活动引导内容原文，仅本地留存
+# data/sample/      唯一放行项：45 行脱敏样本，仅 platform/content_clean/date
+# ─────────────────────────────────────────────────────────────
+data/*
+!data/sample/
+!data/sample/*.csv
+
+# ─────────────────────────────────────────────────────────────
+# outputs/ 整体提交：已核查无 PII、无平台原始 ID
+#   含 evidence_boundary.csv、roi_*.csv、campaign_pattern_summary.csv
+#   （campaign_pattern_summary.csv 只含脱敏特征摘要，不含原文与 ID）
+# ─────────────────────────────────────────────────────────────
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.ipynb_checkpoints/
+.venv/
+venv/
+env/
+*.egg-info/
+
+# 模型权重与缓存（transformers / torch / jieba）
+.cache/
+*.pt
+*.pth
+*.safetensors
+*.bin
+jieba.cache
+
+# 编辑器 / IDE
+.idea/
+.vscode/
+*.swp
+
+# 系统
+.DS_Store
+Thumbs.db
+desktop.ini
