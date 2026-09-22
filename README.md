@@ -149,8 +149,8 @@ ordered. Grey hatching marks topics below n=20, where no conclusion is drawn.*
 
 ## 6. Implications for the proposal
 
-Taste and efficacy are the two axes the audience actually argues about, so they are where
-messaging has something to engage with; packaging and design, by contrast, is an unambiguous
+Within the product-experience cluster, taste and efficacy are the two dominant axes, so they are
+where messaging has something to engage with; packaging and design, by contrast, is an unambiguous
 negative and the clearest candidate for remedial work rather than promotion. Taste is a
 high-volume discussion dimension (30.6% of the product-experience cluster), but this dataset
 does not show sweetness as a concentrated complaint (net +2.6, n=39). The low-sugar variant
