@@ -3,8 +3,9 @@
 **TL;DR**
 
 - **Packaging & design (net −32.5) and the competitor/trademark dispute (net −29.2) are the two
-  strongly negative topics.** Taste and efficacy are where the conversation actually happens:
-  taste is near neutral, while efficacy leans negative (n=44, borderline).
+  strongly negative topics.** Within product-experience discussion, taste and efficacy dominate
+  (30.6% and 29.8% of that cluster): taste is near neutral, while efficacy leans negative
+  (n=44, borderline).
 - **Filtering off-topic comments reverses the platform ranking.** Douyin looks like the most
   positive platform until filtered; afterwards Bilibili is, and Douyin turns net-negative.
 - **Only 253 of 1,108 collected comments survive filtering**, and the two topics the proposal
